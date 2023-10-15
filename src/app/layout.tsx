@@ -21,12 +21,15 @@ export default function RootLayout({
     <html lang="en" className="light !scroll-smooth">
       <body
         className={cn(
-          "min-h-screen font-sans antialiased grainy",
-          inter.className
+          "grainy min-h-screen font-sans antialiased",
+          inter.className,
         )}
       >
         <ThemeContextProvider>
-          {children}
+          <main className="m-auto min-w-[300px] max-w-7xl bg-lime-200 p-4">
+            {children}
+          </main>
+
           <ThemeSwitch />
         </ThemeContextProvider>
       </body>

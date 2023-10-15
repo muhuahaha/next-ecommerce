@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { prisma } from "@/lib/db/prisma";
 import { redirect } from "next/navigation";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import FormSubmitButton from "@/components/FormSubmitButton";
 
 export const metadata = {
   title: "Add Product - Flowmazon",
@@ -14,7 +16,7 @@ async function addProduct(formData: FormData) {
   const description = formData.get("description")?.toString();
   const imageUrl = formData.get("imageUrl")?.toString();
   const price = Number(formData.get("price") || 0);
-
+  // throw Error("Bazinga");
   if (!name || !description || !imageUrl || !price) {
     throw Error("Missing required fields");
   }
@@ -28,9 +30,8 @@ async function addProduct(formData: FormData) {
 
 export default function AddProductPage() {
   return (
-    <div className="mb-12 mt-28 flex flex-col items-center justify-center bg-slate-700 text-center sm:mt-40">
+    <MaxWidthWrapper className="flex flex-col items-center justify-center bg-lime-400 p-10 text-center sm:mt-40">
       <h1 className="mb-3 text-lg font-bold ">Add Product</h1>
-
       <form action={addProduct}>
         <input
           required
@@ -58,8 +59,8 @@ export default function AddProductPage() {
           type="number"
           className="input-bordered input mb-3 w-full"
         />
-        <Button>Add Product</Button>
+        <FormSubmitButton className="btn-block">Add Product</FormSubmitButton>
       </form>
-    </div>
+    </MaxWidthWrapper>
   );
 }

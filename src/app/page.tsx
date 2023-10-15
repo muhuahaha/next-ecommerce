@@ -1,11 +1,47 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import GsapTest from "@/components/gsap/gsap-test";
 import Image from "next/image";
+import { prisma } from "@/lib/db/prisma";
+import { Link } from "lucide-react";
+import ProductCard from "@/components/ProductCard";
 
-export default function Home() {
+export default async function Home() {
+  const products = await prisma.product.findMany({
+    orderBy: { id: "desc" },
+  });
+
   return (
-    <MaxWidthWrapper className="bg-lime-400 mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
-      <h1 className="">hallo</h1>
+    <MaxWidthWrapper className="mb-12 mt-28 flex flex-col items-center justify-center bg-lime-400 text-center sm:mt-40">
+      <div>
+        <div className="hero bg-base-200 rounded-xl">
+          <div className="hero-content flex-col lg:flex-row">
+            <Image
+              src={products[0].imageUrl}
+              alt={products[0].name}
+              width={400}
+              height={800}
+              className="w-full max-w-sm rounded-lg shadow-2xl"
+              priority
+            />
+            <div>
+              <h1 className="text-5xl font-bold">{products[0].name}</h1>
+              <p className="py-6">{products[0].description}</p>
+              <Link
+                href={"/products/" + products[0].id}
+                className="btn-primary btn"
+              >
+                Check it out
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {products.slice(1).map((product) => (
+            <ProductCard product={product} key={product.id} />
+          ))}
+        </div>
+      </div>
       <GsapTest />
     </MaxWidthWrapper>
   );
