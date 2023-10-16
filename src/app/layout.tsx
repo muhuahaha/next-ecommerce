@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import ThemeContextProvider from "@/context/theme-context";
 import ThemeSwitch from "@/components/theme-switch";
+import Navbar from "./Navbar/Navbar";
+import Footer from "./Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,10 +28,11 @@ export default function RootLayout({
         )}
       >
         <ThemeContextProvider>
+          <Navbar />
           <main className="m-auto min-w-[300px] max-w-7xl bg-lime-200 p-4">
             {children}
           </main>
-
+          <Footer />
           <ThemeSwitch />
         </ThemeContextProvider>
       </body>
