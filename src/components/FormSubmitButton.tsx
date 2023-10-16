@@ -1,7 +1,7 @@
 "use client";
 
 import { ComponentProps } from "react";
-
+// @ts-ignore
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { LoadingAnimation } from "./loading-animation";
 
